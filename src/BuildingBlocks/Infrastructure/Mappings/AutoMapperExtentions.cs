@@ -12,12 +12,11 @@ namespace Infrastructure.Mappings
             var sourceType = typeof(TSource);
             var destinationProperties = typeof(TDestination).GetProperties(flags);
 
-            foreach(var property in destinationProperties)
+            foreach (var property in destinationProperties)
             {
                 if (sourceType.GetProperty(property.Name, flags) == null)
                 {
                     expression.ForMember(property.Name, opt => opt.Ignore());
-
                 }
             }
             return expression;

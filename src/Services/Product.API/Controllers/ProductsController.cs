@@ -1,9 +1,6 @@
 using AutoMapper;
-using Contracts.Common.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Product.API.Entities;
-using Product.API.Persistence;
 using Product.API.Repositories.Interfaces;
 using Shared.DTOs.Product;
 using System.ComponentModel.DataAnnotations;
@@ -24,6 +21,7 @@ namespace Product.API.Controllers
         }
 
         #region CRUD
+
         [HttpGet]
         public async Task<IActionResult> GetProducts()
         {
@@ -81,7 +79,8 @@ namespace Product.API.Controllers
             await _repository.SaveChangesAsync();
             return NoContent();
         }
-        #endregion
+
+        #endregion CRUD
 
         #region Additional Resources
 
@@ -96,7 +95,6 @@ namespace Product.API.Controllers
             return Ok(result);
         }
 
-        #endregion
-
+        #endregion Additional Resources
     }
 }
