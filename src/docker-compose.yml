@@ -41,6 +41,13 @@ services:
   kibana:
     image: docker.elastic.co/kibana/kibana:7.17.2
 
+  #MICROSERVICE API SECTION
+  product.api:
+    image: ${DOCKER_REGISTRY-}product-api:${PLATFORM:-linux}-${TAG:-latest}
+    build:
+      context: .
+      dockerfile: Services/Product.API/Dockerfile
+
 #NETWORKS SECTION
 networks:
   default:

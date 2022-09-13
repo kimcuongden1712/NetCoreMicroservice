@@ -75,13 +75,13 @@ services:
   pgadmin:
     container_name: pgadmin
     environment:
-      - PGADMIN_DEFAULT_EMAI=kimcuongden1712@gmail.com
-      - POSTGRES_PASSWORD=admin1234
+      - PGADMIN_DEFAULT_EMAIL=admin@tedu.com.vn
+      - PGADMIN_DEFAULT_PASSWORD=admin1234
     restart: always
-    volumes:
-      - pgadmin_data:/root/.pgadmin
     ports:
       - "5050:80"
+    volumes:
+      - pgadmin_data:/root/.pgadmin
 
   portainer:
     container_name: portainer
@@ -113,3 +113,16 @@ services:
       - elasticsearch
     ports:
       - "5601:5601"
+
+  #MICROSERVICE API SECTION
+  product.api:
+    container_name: product.api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
+      - "ConnectionStrings:DefaultConnectionString=Server=productdb;Port=3306;Database=ProductDb;Uid=root;Pwd=Passw0rd!"
+    depends_on: 
+      - productdb
+    ports:
+      - "6002:80"
+    restart: always
