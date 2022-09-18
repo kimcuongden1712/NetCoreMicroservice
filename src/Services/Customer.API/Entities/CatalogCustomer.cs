@@ -2,9 +2,9 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Product.API.Entities
+namespace Customer.API.Entites
 {
-    public class Customer : EntityAuditBase<int>
+    public class CatalogCustomer : EntityAuditBase<long>
     {
         [Required]
         [Column(TypeName = "varchar(150)")]
@@ -20,6 +20,6 @@ namespace Product.API.Entities
 
         [Required]
         [EmailAddress]
-        public string Email { get; set; }
+        public string EmailAddress { get; set; }
     }
 }

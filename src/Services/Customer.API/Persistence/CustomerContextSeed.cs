@@ -1,5 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Product.API.Persistence;
+﻿using Customer.API.Entites;
+using Microsoft.EntityFrameworkCore;
 
 namespace Customer.API.Persistence;
 
@@ -29,7 +29,7 @@ public static class CustomerContextSeed
             x.EmailAddress.Equals(email));
         if (customer == null)
         {
-            var newCustomer = new Entities.Customer
+            var newCustomer = new CatalogCustomer
             {
                 UserName = username,
                 FirstName = firstName,

@@ -1,21 +1,21 @@
 ﻿using Contracts.Domains.Interfaces;
+using Customer.API.Entites;
 using Microsoft.EntityFrameworkCore;
 
-namespace Product.API.Persistence
+namespace Customer.API.Persistence
 {
     public class CustomerContext : DbContext
     {
         public CustomerContext(DbContextOptions<CustomerContext> options) : base(options)
         {
         }
-
-        public DbSet<Customer> Products { get; set; }
+        public DbSet<CatalogCustomer> Customers { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<Customer>().HasIndex(x => x.UserName).IsUnique();
-            modelBuilder.Entity<Customer>().HasIndex(x => x.Email).IsUnique();
+            modelBuilder.Entity<CatalogCustomer>().HasIndex(x => x.UserName).IsUnique();
+            modelBuilder.Entity<CatalogCustomer>().HasIndex(x => x.EmailAddress).IsUnique();
         }
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
