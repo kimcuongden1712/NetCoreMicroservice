@@ -3,7 +3,6 @@ using Customer.API.Persistence;
 using Customer.API.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Npgsql;
-using Product.API.Repositories.Interfaces;
 
 namespace Customer.API.Extentions
 {
@@ -19,7 +18,7 @@ namespace Customer.API.Extentions
             services.AddSwaggerGen();
             services.ConfigureCustomerDbContext(configuration);
             services.AddInfrastructureServices();
-            services.AddAutoMapper(cfg => cfg.AddProfile(new MappingProfile()));
+            //services.AddAutoMapper(cfg => cfg.AddProfile(new MappingProfile()));
             return services;
         }
 

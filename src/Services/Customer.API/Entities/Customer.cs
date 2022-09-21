@@ -2,9 +2,9 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Customer.API.Entites
+namespace Customer.API.Entities
 {
-    public class CatalogCustomer : EntityAuditBase<long>
+    public class Customer : EntityAuditBase<long>
     {
         [Required]
         [Column(TypeName = "varchar(150)")]

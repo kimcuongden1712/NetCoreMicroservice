@@ -1,5 +1,4 @@
 ﻿using Contracts.Domains.Interfaces;
-using Customer.API.Entites;
 using Microsoft.EntityFrameworkCore;
 
 namespace Customer.API.Persistence
@@ -9,13 +8,14 @@ namespace Customer.API.Persistence
         public CustomerContext(DbContextOptions<CustomerContext> options) : base(options)
         {
         }
-        public DbSet<CatalogCustomer> Customers { get; set; }
+
+        public DbSet<Entities.Customer> Customers { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<CatalogCustomer>().HasIndex(x => x.UserName).IsUnique();
-            modelBuilder.Entity<CatalogCustomer>().HasIndex(x => x.EmailAddress).IsUnique();
+            modelBuilder.Entity<Entities.Customer>().HasIndex(x => x.UserName).IsUnique();
+            modelBuilder.Entity<Entities.Customer>().HasIndex(x => x.EmailAddress).IsUnique();
         }
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())

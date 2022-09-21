@@ -1,26 +1,24 @@
 ﻿using Contracts.Common.Interfaces;
-using Customer.API.Entites;
 using Customer.API.Persistence;
-using Customer.API.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
-namespace Product.API.Repositories.Interfaces
+namespace Customer.API.Repositories.Interfaces
 {
-    public class CustomerRepository : RepositoryBaseAsync<CatalogCustomer, long, CustomerContext>, ICustomerRepository
+    public class CustomerRepository : RepositoryBaseAsync<Entities.Customer, long, CustomerContext>, ICustomerRepository
     {
         public CustomerRepository(CustomerContext dbContext, IUnitOfWork<CustomerContext> unitOfWork) : base(dbContext, unitOfWork)
         {
         }
 
-        public async Task<IEnumerable<CatalogCustomer>> GetCustomers() => await FindAll().ToListAsync();
+        public async Task<IEnumerable<Entities.Customer>> GetCustomers() => await FindAll().ToListAsync();
 
-        public Task<CatalogCustomer> GetCustomer(long id) => GetByIdAsync(id);
+        public Task<Entities.Customer> GetCustomer(long id) => GetByIdAsync(id);
 
-        public Task<CatalogCustomer> GetCustomerByEmailAddress(string email) => FindByCondition(x => x.EmailAddress.Equals(email)).SingleOrDefaultAsync();
+        public Task<Entities.Customer> GetCustomerByEmailAddress(string email) => FindByCondition(x => x.EmailAddress.Equals(email)).SingleOrDefaultAsync();
 
-        public Task CreateCustomer(CatalogCustomer customer) => CreateAsync(customer);
+        public Task CreateCustomer(Entities.Customer customer) => CreateAsync(customer);
 
-        public Task UpdateCustomer(CatalogCustomer customer) => UpdateAsync(customer);
+        public Task UpdateCustomer(Entities.Customer customer) => UpdateAsync(customer);
 
         public async Task DeleteCustomer(long id)
         {

@@ -1,5 +1,4 @@
-﻿using Customer.API.Entites;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace Customer.API.Persistence;
 
@@ -29,7 +28,7 @@ public static class CustomerContextSeed
             x.EmailAddress.Equals(email));
         if (customer == null)
         {
-            var newCustomer = new CatalogCustomer
+            var newCustomer = new Entities.Customer
             {
                 UserName = username,
                 FirstName = firstName,
@@ -39,6 +38,5 @@ public static class CustomerContextSeed
             await customerContext.Customers.AddAsync(newCustomer);
             await customerContext.SaveChangesAsync();
         }
-
     }
 }

@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Customer.API.Entites;
 
 namespace Customer.API
 {
@@ -7,9 +6,9 @@ namespace Customer.API
     {
         public MappingProfile()
         {
-            CreateMap<CatalogCustomer, CustomerDTO>();
-            CreateMap<CreateCustomerDTO, CatalogCustomer>();
-            CreateMap<UpdateCustomerDTO, CatalogCustomer>();
+            //CreateMap<CatalogCustomer, CustomerDTO>();
+            //CreateMap<CreateCustomerDTO, CatalogCustomer>();
+            //CreateMap<UpdateCustomerDTO, CatalogCustomer>();
         }
     }
 }
