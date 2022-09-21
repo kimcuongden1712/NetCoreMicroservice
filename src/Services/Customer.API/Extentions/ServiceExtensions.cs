@@ -19,6 +19,7 @@ namespace Customer.API.Extentions
             services.AddSwaggerGen();
             services.ConfigureCustomerDbContext(configuration);
             services.AddInfrastructureServices();
+            //TODO when create function Create Delete & Update
             //services.AddAutoMapper(cfg => cfg.AddProfile(new MappingProfile()));
             return services;
         }
