@@ -9,7 +9,7 @@
         public static void UseInfrastructure(this IApplicationBuilder app)
         {
             app.UseSwagger();
-            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Customer API"));
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Customer Minimal API"));
 
             app.UseRouting();
             //app.UseHttpsRedirection(); //for production only

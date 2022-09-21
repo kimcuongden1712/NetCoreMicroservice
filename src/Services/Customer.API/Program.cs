@@ -6,7 +6,7 @@ using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
-Log.Information("Start Customer API up");
+Log.Information("Start Customer Minimal API up");
 
 try
 {
@@ -41,6 +41,6 @@ catch (Exception ex)
 }
 finally
 {
-    Log.Information("Shut down Ordering API complete");
+    Log.Information("Shut down Customer Minimal API complete");
     Log.CloseAndFlush();
 }
