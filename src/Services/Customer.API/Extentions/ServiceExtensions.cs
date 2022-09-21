@@ -1,6 +1,7 @@
 ﻿using Contracts.Common.Interfaces;
 using Customer.API.Persistence;
 using Customer.API.Repositories.Interfaces;
+using Customer.API.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Npgsql;
 
@@ -39,7 +40,7 @@ namespace Customer.API.Extentions
             return services.AddScoped(typeof(IRepositoryBaseAsync<,,>), typeof(RepositoryBaseAsync<,,>))
                     .AddScoped(typeof(IUnitOfWork<>), typeof(UnitOfWork<>))
                     .AddScoped<ICustomerRepository, CustomerRepository>()
-                ;
+                    .AddScoped<ICustomerService, CustomerService>();
         }
     }
 }
