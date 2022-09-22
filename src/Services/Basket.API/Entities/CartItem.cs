@@ -10,12 +10,12 @@ namespace Basket.API.Entities
 
         [Required]
         [Range(0.1, double.PositiveInfinity, ErrorMessage = "The field {0} must be >= {0.1}")]
-        public decimal ItemPrice { get; set; }
+        public decimal ProductPrice { get; set; }
 
         [Required]
-        public string ItemNo { get; set; }
+        public string ProductNo { get; set; }
 
         [Required]
-        public string ItemName { get; set; }
+        public string ProductName { get; set; }
     }
 }

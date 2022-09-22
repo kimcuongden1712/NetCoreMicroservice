@@ -6,6 +6,6 @@
 
         string Serialize<T>(T obj, Type type);
 
-        T Derialize<T>(string text);
+        T Deserialize<T>(string text);
     }
 }

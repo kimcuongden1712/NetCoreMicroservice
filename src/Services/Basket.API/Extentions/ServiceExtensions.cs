@@ -35,7 +35,7 @@ namespace Basket.API.Extentions
             return services;
         }
 
-        private static IServiceCollection ConfigureServices(this IServiceCollection services) => 
+        private static IServiceCollection ConfigureServices(this IServiceCollection services) =>
             services.AddScoped<IBasketRepository, BasketRepository>()
                 .AddTransient<ISerializeService, SerializeService>();
     }

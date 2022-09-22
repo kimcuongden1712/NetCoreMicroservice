@@ -8,13 +8,33 @@ namespace Basket.API.Repositories.Interfaces
     public class BasketRepository : IBasketRepository
     {
         private readonly IDistributedCache _redisCacheService;
-        private readonly ISerializeService _serializeService;
+        private readonly ISerializeService _serializerService;
         private readonly Ilogger _logger;
+
         public BasketRepository(IDistributedCache redisCacheService, ISerializeService serializeService, Ilogger logger)
         {
             _redisCacheService = redisCacheService;
-            _serializeService = serializeService;
+            _serializerService = serializeService;
             _logger = logger;
+        }
+
+        public async Task<Cart?> GetBasketByUserName(string username)
+        {
+            var basket = await _redisCacheService.GetStringAsync(username);
+            return string.IsNullOrEmpty(basket) ? null :
+                _serializerService.Deserialize<Cart>(basket);
+        }
+
+        public async Task<Cart> UpdateBasket(Cart basket, DistributedCacheEntryOptions options = null)
+        {
+            if (options != null)
+                await _redisCacheService.SetStringAsync(basket.UserName,
+                    _serializerService.Serialize(basket), options);
+            else
+                await _redisCacheService.SetStringAsync(basket.UserName,
+                _serializerService.Serialize(basket));
+
+            return await GetBasketByUserName(basket.UserName);
         }
 
         public async Task<bool> DeleteBasket(string username)
@@ -29,30 +49,6 @@ namespace Basket.API.Repositories.Interfaces
                 _logger.Error("DeleteBasket" + ex.Message);
                 return false;
             }
-            
-        }
-
-        public async Task<Cart?> GetBasketByUserName(string username)
-        {
-            _logger.Information($"Begin GetBasketByUserName");
-            var basket = await _redisCacheService.GetStringAsync(username);
-            _logger.Information($"End GetBasketByUserName");
-            return string.IsNullOrEmpty(basket) ? null : _serializeService.Derialize<Cart>(basket);
-        }
-
-        public async Task<Cart> UpdateBasket(Cart cart, DistributedCacheEntryOptions options = null)
-        {
-            _logger.Information($"Begin UpdateBasket");
-            if (options != null)
-            {
-                await _redisCacheService.SetStringAsync(cart.UserName, _serializeService.Serialize(cart), options);
-            }
-            else
-            {
-                await _redisCacheService.SetStringAsync(cart.UserName, _serializeService.Serialize(cart));
-            }
-            _logger.Information($"Return UpdateBasket");
-            return await GetBasketByUserName(cart.UserName);
         }
     }
 }

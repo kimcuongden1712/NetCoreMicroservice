@@ -8,7 +8,6 @@ Log.Information("Start Basket API up");
 
 try
 {
-
     builder.Host.UseSerilog(Serilogger.Configure);
     builder.Host.AddAppConfigurations();
     // Add services to the container.
@@ -19,7 +18,6 @@ try
     app.UseInfrastructure();
 
     app.Run();
-
 }
 catch (Exception ex)
 {
