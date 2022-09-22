@@ -5,10 +5,10 @@ namespace Basket.API.Repositories.Interfaces
 {
     public interface IBasketRepository
     {
-        Task<Cart?> GetBasketByUserName(string username);
+        public Task<Cart?> GetBasketByUserName(string username);
 
-        Task<Cart> UpdateBasket(Cart cart, DistributedCacheEntryOptions options = null);
+        public Task<Cart> UpdateBasket(Cart cart, DistributedCacheEntryOptions options = null);
 
-        Task<bool> DeleteBasket(string username);
+        public Task<bool> DeleteBasket(string username);
     }
 }

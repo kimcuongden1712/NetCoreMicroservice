@@ -7,11 +7,7 @@ namespace Infrastructure.Common
 {
     public class SerializeService : ISerializeService
     {
-        
-        public T Derialize<T>(string text)
-        {
-            return JsonConvert.DeserializeObject<T>(text);
-        }
+        public T Derialize<T>(string text) => JsonConvert.DeserializeObject<T>(text);
 
         public string Serialize<T>(T obj)
         {
@@ -29,9 +25,6 @@ namespace Infrastructure.Common
             }));
         }
 
-        public string Serialize<T>(T obj, Type type)
-        {
-            return JsonConvert.SerializeObject(obj, type, new JsonSerializerSettings());
-        }
+        public string Serialize<T>(T obj, Type type) => JsonConvert.SerializeObject(obj, type, new JsonSerializerSettings());
     }
 }

@@ -1,4 +1,6 @@
 ﻿using Basket.API.Repositories.Interfaces;
+using Contracts.Common.Interfaces;
+using Infrastructure.Common;
 
 namespace Basket.API.Extentions
 {
@@ -33,9 +35,8 @@ namespace Basket.API.Extentions
             return services;
         }
 
-        private static IServiceCollection ConfigureServices(this IServiceCollection services)
-        {
-            return services.AddScoped<IBasketRepository, BasketRepository>();
-        }
+        private static IServiceCollection ConfigureServices(this IServiceCollection services) => 
+            services.AddScoped<IBasketRepository, BasketRepository>()
+                .AddTransient<ISerializeService, SerializeService>();
     }
 }
