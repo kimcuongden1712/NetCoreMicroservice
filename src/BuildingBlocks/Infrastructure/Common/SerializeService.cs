@@ -30,7 +30,12 @@ namespace Infrastructure.Common
 
         public T Deserialize<T>(string text)
         {
-            return JsonConvert.DeserializeObject<T>(text);
+            var setting = new JsonSerializerSettings
+            {
+                NullValueHandling = NullValueHandling.Ignore,
+                MissingMemberHandling = MissingMemberHandling.Ignore
+            };
+            return JsonConvert.DeserializeObject<T>(text, setting);
         }
     }
 }

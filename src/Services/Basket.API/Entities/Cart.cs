@@ -18,7 +18,7 @@
         {
             get
             {
-                return Items.Sum(item => item.ProductPrice * item.Quantity);
+                return Items != null ? Items.Sum(item => item.ProductPrice * item.Quantity) : 0;
             }
         }
     }
