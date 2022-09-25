@@ -1,5 +1,7 @@
 using Common.Logging;
+using Ordering.API.Extentions;
 using Ordering.Infrastructure;
+using Ordering.Infrastructure.Persistence;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,8 +11,10 @@ Log.Information("Start Ordering API up");
 
 try
 {
-
     // Add services to the container.
+    //builder.Host.AddAppConfigurations();
+    //builder.Services.AddConfigurationSettings(builder.Configuration);
+    //builder.Services.AddApplicationServices();
     builder.Services.AddInfrastructureServices(builder.Configuration);
     builder.Services.AddControllers();
     // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -32,11 +36,19 @@ try
 
     app.MapControllers();
 
-    app.Run();
+    using (var scope = app.Services.CreateScope())
+    {
+        var orderContextSeed = scope.ServiceProvider.GetRequiredService<OrderContextSeed>();
+        await orderContextSeed.InitialiseAsync();
+        await orderContextSeed.SeedAsync();
+    }
 
+    app.Run();
 }
 catch (Exception ex)
 {
+    string type = ex.GetType().Name;
+    if (type.Equals("StopTheHostException", StringComparison.Ordinal)) throw;
     Log.Fatal(ex, "Unhandled exception");
 }
 finally

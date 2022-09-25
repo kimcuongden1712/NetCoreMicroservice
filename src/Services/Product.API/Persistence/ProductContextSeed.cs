@@ -19,24 +19,24 @@ namespace Product.API.Persistence
         private static IEnumerable<CatalogProduct> getCatalogProducts()
         {
             return new List<CatalogProduct>
-        {
-            new()
             {
-                No = "Lotus",
-                Name = "Esprit",
-                Summary = "Nondisplaced fracture of greater trochanter of right femur",
-                Description = "Nondisplaced fracture of greater trochanter of right femur",
-                Price = (decimal)177940.49
-            },
-            new()
-            {
-                No = "Cadillac",
-                Name = "CTS",
-                Summary = "Carbuncle of trunk",
-                Description = "Carbuncle of trunk",
-                Price = (decimal)114728.21
-            }
-        };
+                new()
+                {
+                    No = "Lotus",
+                    Name = "Esprit",
+                    Summary = "Nondisplaced fracture of greater trochanter of right femur",
+                    Description = "Nondisplaced fracture of greater trochanter of right femur",
+                    Price = (decimal)177940.49
+                },
+                new()
+                {
+                    No = "Cadillac",
+                    Name = "CTS",
+                    Summary = "Carbuncle of trunk",
+                    Description = "Carbuncle of trunk",
+                    Price = (decimal)114728.21
+                }
+            };
         }
     }
 }

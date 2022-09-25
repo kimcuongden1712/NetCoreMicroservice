@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Routing;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Ordering.Infrastructure.Persistence;
@@ -13,6 +14,7 @@ namespace Ordering.Infrastructure
                 options => options.UseSqlServer(configuration.GetConnectionString("DefaultConnectionString"), 
                 builder => builder.MigrationsAssembly(typeof(OrderContext).Assembly.FullName)));
 
+            services.AddScoped<OrderContextSeed>();
             return services;
         }
     }
