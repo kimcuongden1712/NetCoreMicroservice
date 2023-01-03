@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Product.API.Entities
 {
-    public class CatalogProduct : EntityAuditBase<long>
+    public class Brand : EntityAuditBase<long>
     {
         [Required]
         [Column(TypeName = "varchar(150)")]
@@ -20,9 +20,6 @@ namespace Product.API.Entities
         [Column(TypeName = "text")]
         public string Description { get; set; }
 
-        [Column(TypeName = "decimal(12,2)")]
-        public decimal Price { get; set; }
-
-        public long BrandId { get; set; }
+        public IList<CatalogProduct> Items { get; private set; } = new List<CatalogProduct>();
     }
 }

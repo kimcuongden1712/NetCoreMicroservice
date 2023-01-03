@@ -11,6 +11,7 @@ namespace Product.API.Persistence
         }
 
         public DbSet<CatalogProduct> Products { get; set; }
+        public DbSet<Brand> Brands { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
