@@ -7,7 +7,9 @@ namespace Product.API.Repositories.Interfaces
 {
     public class ProductRepository : RepositoryBaseAsync<CatalogProduct, long, ProductContext>, IProductRepository
     {
-        public ProductRepository(ProductContext dbContext, IUnitOfWork<ProductContext> unitOfWork) : base(dbContext, unitOfWork)
+        private readonly IAppUnitOfWork _appUnitOfWork;
+        public ProductRepository(ProductContext dbContext, 
+            IUnitOfWork<ProductContext> unitOfWork) : base(dbContext, unitOfWork)
         {
         }
 
