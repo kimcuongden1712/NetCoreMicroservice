@@ -75,7 +75,8 @@ services:
   pgadmin:
     container_name: pgadmin
     environment:
-      - PGADMIN_DEFAULT_EMAI=kimcuongden1712@gmail.com
+      - PGADMIN_DEFAULT_EMAIL=kimcuongden1712@gmail.com
+      - PGADMIN_DEFAULT_PASSWORD=admin1234
       - POSTGRES_PASSWORD=admin1234
     restart: always
     volumes:
