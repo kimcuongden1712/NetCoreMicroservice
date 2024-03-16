@@ -22,5 +22,42 @@ namespace Common.Logging
                 .ReadFrom.Configuration(context.Configuration);
         };
 
+        public static void LogException(Exception ex)
+        {
+            var exceptionToMessageMap = new Dictionary<string, string>
+            {
+                { "FileNotFoundException", "The file was not found" },
+                { "HttpRequestException", "The request failed" },
+                { "SqlException", "The SQL Server failed" },
+                { "IOException", "An IO exception occurred" },
+                { "InvalidOperationException", "An invalid operation occurred" },
+                { "NotSupportedException", "The operation is not supported" },
+                { "ObjectDisposedException", "The object was disposed" },
+                { "UnauthorizedAccessException", "The operation was unauthorized" },
+                { "ArgumentException", "An argument exception occurred" },
+                { "FormatException", "The format was invalid" },
+                { "NullReferenceException", "The reference was null" },
+                { "IndexOutOfRangeException", "The index was out of range" },
+                { "TimeoutException", "The operation timed out" },
+                { "KeyNotFoundException", "The key was not found" },
+                { "AggregateException", "An aggregate exception occurred" },
+                { "TaskCanceledException", "The task was canceled" },
+                { "OperationCanceledException", "The operation was canceled" },
+                { "OverflowException", "The operation overflowed" },
+                { "DivideByZeroException", "The operation divided by zero" },
+                { "InvalidCastException", "The cast was invalid" }
+            };
+
+            string type = ex.GetType().Name;
+
+            if (exceptionToMessageMap.TryGetValue(type, out var message))
+            {
+                Log.Error(message);
+            }
+            else
+            {
+                Log.Error("An unknown exception occurred");
+            }
+        }
     }
 }
