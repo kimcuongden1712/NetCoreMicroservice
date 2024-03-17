@@ -1,5 +1,6 @@
 using Common.Logging;
 using Product.API.Extensions;
+using Product.API.Persistence;
 using Serilog;
 
 Log.Information("Starting API");
@@ -12,7 +13,10 @@ try
     builder.Services.AddInfrastructure(builder.Configuration);
     var app = builder.Build();
     app.UseInfrastructure();
-    app.Run();
+    app.MigrationDatabase<ProductContext>((context, _) =>
+    {
+        ProductContextSeed.SeedAsync(context, Log.Logger).Wait();
+    }).Run();
 }
 catch (Exception ex)
 {
