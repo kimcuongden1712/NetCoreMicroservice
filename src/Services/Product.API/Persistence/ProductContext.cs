@@ -9,8 +9,13 @@ namespace Product.API.Persistence
         public ProductContext(DbContextOptions<ProductContext> options) : base(options)
         {
         }
-
         public DbSet<CatelogProduct> Products { get; set; } = default!;
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<CatelogProduct>().HasIndex(x => x.No).IsUnique();
+        }
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
         {
