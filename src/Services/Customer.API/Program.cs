@@ -1,4 +1,7 @@
 using Common.Logging;
+using Customer.API.Extensions;
+using Customer.API.Persistence;
+using Microsoft.EntityFrameworkCore;
 using Serilog;
 
 Log.Information("Starting API");
@@ -14,7 +17,11 @@ try
     // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
     builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddSwaggerGen();
-
+    var connectionString = builder.Configuration.GetConnectionString("DefaultConnectionString");
+    builder.Services.AddDbContext<CustomerContext>(options =>
+    {
+        options.UseNpgsql(connectionString);
+    });
     var app = builder.Build();
 
     // Configure the HTTP request pipeline.
@@ -24,39 +31,22 @@ try
         app.UseSwaggerUI();
     }
 
-    app.UseHttpsRedirection();
+    //app.UseHttpsRedirection(); uncomment this line to enable https redirection
 
-    var summaries = new[]
-    {
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
-
-    app.MapGet("/weatherforecast", () =>
-    {
-        var forecast = Enumerable.Range(1, 5).Select(index =>
-           new WeatherForecast
-           (
-               DateTime.Now.AddDays(index),
-               Random.Shared.Next(-20, 55),
-               summaries[Random.Shared.Next(summaries.Length)]
-           ))
-            .ToArray();
-        return forecast;
-    })
-    .WithName("GetWeatherForecast");
-
-    app.Run();
+    //app.MigrationDatabase<CustomerContext>((context, _) =>
+    //{
+    //    CustomerContextSeed.SeedAsync(context, Log.Logger).Wait();
+    //}).Run();
+    app.SeedCustomerData().Run();
 }
 catch (Exception ex)
 {
+    string type = ex.GetType().Name;
+    if (type.Equals("StopTheHostException", StringComparison.Ordinal)) throw;
     Log.Fatal(ex, "Host terminated unexpectedly");
 }
 finally
 {
     Log.Information("Shutting down API complete");
     Log.CloseAndFlush();
-}
-internal record WeatherForecast(DateTime Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
 }
