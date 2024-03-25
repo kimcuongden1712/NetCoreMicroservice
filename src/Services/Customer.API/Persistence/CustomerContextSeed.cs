@@ -71,7 +71,7 @@ namespace Customer.API.Persistence
                         FirstName = "Rizenn",
                         LastName = "Doe",
                         EmailAddress = "Odegat@gmail.com"
-                    });
+                    }).GetAwaiter().GetResult();
 
                     CreateCustomer(context, new CatelogCustomer
                     {
@@ -79,7 +79,7 @@ namespace Customer.API.Persistence
                         FirstName = "Havert",
                         LastName = "Kai",
                         EmailAddress = "kaihavert@gmail.com"
-                    });
+                    }).GetAwaiter().GetResult();
                 }
                 catch (Exception ex)
                 {

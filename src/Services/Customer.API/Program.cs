@@ -20,7 +20,7 @@ try
     var connectionString = builder.Configuration.GetConnectionString("DefaultConnectionString");
     builder.Services.AddDbContext<CustomerContext>(options =>
     {
-        options.UseNpgsql(connectionString);
+        options.UseNpgsql(connectionString).EnableSensitiveDataLogging();
     });
     var app = builder.Build();
 
