@@ -1,6 +1,7 @@
 using Common.Logging;
 using Contracts.Commonn.Interfaces;
 using Customer.API;
+using Customer.API.Controllers;
 using Customer.API.Extensions;
 using Customer.API.Persistence;
 using Customer.API.Repositories;
@@ -37,23 +38,8 @@ try
 
     var app = builder.Build();
 
-    app.MapGet("/api/customers", async (ICustomerService customerService) => await customerService.GetCustomersAsync());
-    app.MapGet("/api/customers/{userName}", async (ICustomerService customerService, string userName) => await customerService.GetCustomersByUserNameAsync(userName));
-    app.MapPost("/api/customers", async (ICustomerService customerService, CreateCustomerDTO customer) =>
-    {
-        await customerService.CreateCustomerAsync(customer);
-        return Results.Created($"/api/customers/{customer.UserName}", customer);
-    });
-    app.MapPut("/api/customers", async (ICustomerService customerService, UpdateCustomerDTO customer) =>
-    {
-        await customerService.UpdateCustomerAsync(customer);
-        return Results.Ok();
-    });
-    app.MapDelete("/api/customers/{id}", async (ICustomerService customerService, int id) =>
-    {
-        await customerService.DeleteCustomerAsync(id);
-        return Results.NoContent();
-    });
+    //Customer Controller
+    app.MapCustomerController();
 
     // Configure the HTTP request pipeline.
     if (app.Environment.IsDevelopment())
