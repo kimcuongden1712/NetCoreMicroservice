@@ -9,12 +9,13 @@ namespace Customer.API.Persistence
         public CustomerContext(DbContextOptions<CustomerContext> options) : base(options)
         {
         }
+
         public DbSet<CatelogCustomer> Customers { get; set; } = default!;
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<CatelogCustomer>().HasIndex(x => x.Username).IsUnique();
+            modelBuilder.Entity<CatelogCustomer>().HasIndex(x => x.UserName).IsUnique();
             modelBuilder.Entity<CatelogCustomer>().HasIndex(x => x.EmailAddress).IsUnique();
         }
 

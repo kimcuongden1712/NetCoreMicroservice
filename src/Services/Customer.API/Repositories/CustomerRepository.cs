@@ -37,5 +37,7 @@ namespace Customer.API.Repositories
             var customer = await GetCustomerAsync(id);
             await DeleteAsync(customer);
         }
+
+        public async Task<CatelogCustomer> GetCustomersByUserNameAsync(string userName) => await FindByCondition(p => p.UserName.Equals(userName), trackChanges: false).SingleOrDefaultAsync();
     }
 }

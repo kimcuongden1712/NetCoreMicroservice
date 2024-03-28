@@ -11,7 +11,7 @@ namespace Customer.API.Persistence
             if (!customerContext.Customers.Any())
             {
                 customerContext.AddRange(GetCustomer());
-                
+
                 await customerContext.SaveChangesAsync();
 
                 logger.Information("Seed database associated with context {DbContextName}", typeof(CustomerContext).Name);
@@ -24,35 +24,35 @@ namespace Customer.API.Persistence
             {
                 new CatelogCustomer
                 {
-                    Username = "johndoe",
+                    UserName = "johndoe",
                     FirstName = "John",
                     LastName = "Doe",
                     EmailAddress = "abc@gmail.com"
                 },
                 new CatelogCustomer
                 {
-                    Username = "janedoe",
+                    UserName = "janedoe",
                     FirstName = "Jane",
                     LastName = "Doe",
                     EmailAddress = "bcd@gmail.com"
                 },
                 new CatelogCustomer
                 {
-                    Username = "admin",
+                    UserName = "admin",
                     FirstName = "Admin",
                     LastName = "Supper",
                     EmailAddress = "admin@gmail.com"
                 },
                 new CatelogCustomer
                 {
-                    Username = "user",
+                    UserName = "user",
                     FirstName = "User",
                     LastName = "Normal",
                     EmailAddress = "user@gmail.com"
                 }
             };
         }
-        
+
         public static IHost SeedCustomerData(this IHost host)
         {
             using (var scope = host.Services.CreateScope())
@@ -67,7 +67,7 @@ namespace Customer.API.Persistence
 
                     CreateCustomer(context, new CatelogCustomer
                     {
-                        Username = "Odegat",
+                        UserName = "Odegat",
                         FirstName = "Rizenn",
                         LastName = "Doe",
                         EmailAddress = "Odegat@gmail.com"
@@ -75,7 +75,7 @@ namespace Customer.API.Persistence
 
                     CreateCustomer(context, new CatelogCustomer
                     {
-                        Username = "kai",
+                        UserName = "kai",
                         FirstName = "Havert",
                         LastName = "Kai",
                         EmailAddress = "kaihavert@gmail.com"
@@ -93,12 +93,12 @@ namespace Customer.API.Persistence
         private static async Task CreateCustomer(CustomerContext context, CatelogCustomer c)
         {
             var customer = await context.Customers.SingleOrDefaultAsync
-                (x=>x.Username.Equals(c.Username) || x.EmailAddress.Equals(c.EmailAddress));
+                (x => x.UserName.Equals(c.UserName) || x.EmailAddress.Equals(c.EmailAddress));
             if (customer == null)
             {
                 var newCustomer = new CatelogCustomer
                 {
-                    Username = c.Username,
+                    UserName = c.UserName,
                     FirstName = c.FirstName,
                     LastName = c.LastName,
                     EmailAddress = c.EmailAddress
